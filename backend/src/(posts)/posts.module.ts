@@ -14,6 +14,7 @@ import { UserJwtStrategy } from 'src/(auth)/strategy/user.jwt.strategy';
     ResponseService,
     UserJwtStrategy,
   ],
-  controllers: [PostsController]
+  controllers: [PostsController],
+  exports: [PostsService]
 })
 export class PostsModule {}
