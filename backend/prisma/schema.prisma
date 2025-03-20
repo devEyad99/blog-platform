@@ -30,7 +30,7 @@ model Post {
   content   String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  comments  Comment[]
+  comments  Comment[]   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -40,7 +40,7 @@ model Comment {
   content   String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade) // Automatically delete comments if post is deleted
   postId    String
   createdAt DateTime @default(now())
 }

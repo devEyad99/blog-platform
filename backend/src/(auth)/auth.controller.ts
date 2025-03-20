@@ -24,6 +24,7 @@ export class AuthController {
       @Res() res: Response,
     ) {
       const user = await this.authService.register(body, locale);
+       delete user.user.password;
       return this.responseService.created(
         res,
         ResponseMessages(AuthReponseService, 'userCreated', locale),
@@ -39,6 +40,7 @@ export class AuthController {
       @Res() res: Response,
     ) {
       const user = await this.authService.login(body, locale);
+      delete user.user.password;
       return this.responseService.success(
          res,
         ResponseMessages(AuthReponseService, 'userLogin', locale),
