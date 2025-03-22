@@ -1,10 +1,19 @@
+// utils/isAxiosError.ts
 import { AxiosError } from 'axios';
 
-const isAxiosHandler = (error: unknown) => {
-  const axiosError = error as AxiosError<{ message: string }>;
-  // Extract the error message from the response
-  const apiErrorMessage =
-    axiosError.response?.data?.message || 'Something went wrong';
-  return apiErrorMessage; // Pass the message to the reducer
+const isAxiosHandler = (error: unknown): string => {
+  if (error instanceof AxiosError) {
+    // Check if the error response contains the message
+    if (error.response && error.response.data && error.response.data.message) {
+      if (error.response.data.type === "Unauthorized") {
+        return "Email or password is not correct";
+      }else{
+        return error.response.data.message;
+      }
+    }
+   
+  }
+  return 'An unexpected error occurred';
 };
+
 export default isAxiosHandler;

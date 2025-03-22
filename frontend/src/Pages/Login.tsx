@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+// src/pages/Login.tsx
+import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { actAuthLogin } from "../store/Auth/authSlice";
@@ -11,10 +12,6 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    console.log("Redux Auth State:", { token, user });
-  }, [token, user]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();

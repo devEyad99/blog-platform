@@ -1,47 +1,45 @@
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-// import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-// import { actLogout } from "../../../store/Auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { actLogout } from "../../../store/Auth/authSlice";
 import Swal from "sweetalert2";
-// import Searchbar from "../Searchbar/Searchbar";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const { token } = useAppSelector((state) => state.auth);
-  // const dispatch = useAppDispatch();
+  const { token } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
-  // const handleLogout = () => {
-  //   Swal.fire({
-  //     title: 'Are you sure?',
-  //     text: "You will be logged out!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, log out!',
-  //     confirmButtonColor: "#0A66C2", // First button color
-  //     cancelButtonText: 'Cancel',
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       dispatch(actLogout()); // Dispatch logout action
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You will be logged out!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, log out!',
+      confirmButtonColor: "#0A66C2", // First button color
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(actLogout()); // Dispatch logout action
   
-  //       Swal.fire({
-  //         title: 'Logged out!',
-  //         text: 'You have been logged out successfully.',
-  //         icon: 'success',
-  //         confirmButtonText: 'OK',
-  //         confirmButtonColor: "#0A66C2", // Second button color
-  //       });
-  //     }
-  //   });
-  // };
+        Swal.fire({
+          title: 'Logged out!',
+          text: 'You have been logged out successfully.',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: "#0A66C2", // Second button color
+        });
+      }
+    });
+  };
   
 
   return (
     <header className="bg-primaryBlue text-white shadow-md">
       <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between p-4">
         <h1 className="text-xl lg:text-2xl font-bold whitespace-nowrap">Blogging Platform</h1>
-       {/* !token */}
-        { true ? (
+        { !token ? (
           <div className="flex space-x-4 order-2 lg:order-none">
             <NavLink to="/login" className="hover:text-gray-300">
               Login
@@ -70,25 +68,18 @@ export default function Header() {
                     ? "text-warningYellow font-semibold hover:text-yellow-400"
                     : "hover:text-gray-300"
                 }>
-                  Dashboard
+                  Home
                 </NavLink>
-                <NavLink to="/user-profile" className={({ isActive }) =>
+                <NavLink to="/posts" className={({ isActive }) =>
                   isActive
                     ? "text-warningYellow font-semibold hover:text-yellow-400"
                     : "hover:text-gray-300"
                 }>
-                  Profile
-                </NavLink>
-                <NavLink to="/user-tasks" className={({ isActive }) =>
-                  isActive
-                    ? "text-warningYellow font-semibold hover:text-yellow-400"
-                    : "hover:text-gray-300"
-                }>
-                  Tasks
+                  Posts
                 </NavLink>
                 <NavLink
                   to="/"
-                  // onClick={handleLogout}
+                  onClick={handleLogout}
                   className="hover:text-gray-300"
                 >
                   Logout

@@ -24,7 +24,7 @@ const actAuthSignup = createAsyncThunk(
     const { rejectWithValue } = thunkAPI;
     try {
       const response = await axios.post<TResponse>(
-        `${baseUrl}register/user`,
+        `${baseUrl}auth/register/user`,
         formData
       );
       // Extract correct data structure

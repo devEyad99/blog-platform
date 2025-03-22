@@ -1,3 +1,4 @@
+// act/actAuthLogin.ts
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IUsers } from '../../../types/IUser';
@@ -11,9 +12,10 @@ interface TFormData {
 
 interface TResponse {
   message: string;
-  token: string;
-  user: IUsers;
-  data: any; // Add the 'data' property
+  data: {
+    token: string;
+    user: IUsers;
+  };
 }
 
 const actAuthLogin = createAsyncThunk(
@@ -25,17 +27,18 @@ const actAuthLogin = createAsyncThunk(
         `${baseUrl}auth/login/user`,
         formData
       );
-      // Extract the correct data
-      const user = response.data?.data?.user || null;
-      const token = response.data?.data?.token || null;
 
-      return { user, token, message: response.data?.message || null };
+      const user = response.data?.data?.user;
+      const token = response.data?.data?.token;
+      const message = response.data?.message;
+
+      return { user, token, message };
     } catch (error) {
-      return rejectWithValue(isAxiosHandler(error));
+      console.log('Error response:', error); // Log the error response for debugging
+      const parsedError = isAxiosHandler(error); // Pass the error object to isAxiosHandler
+      return rejectWithValue(parsedError);
     }
   }
 );
-
-
 
 export default actAuthLogin;

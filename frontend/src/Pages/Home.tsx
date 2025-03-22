@@ -7,28 +7,21 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <PageLayout title='Manage Tasks'>
+    <PageLayout title='Manage Posts'>
       <div className='flex flex-col-1  items-center gap-5'>
       <button
         className="px-4 py-2 rounded bg-blue-500 text-white mb-4"
-        onClick={() => navigate('/all-tasks')}
+        onClick={() => navigate('/posts')}
       >
-        Get All Tasks
+        Get All Posts
       </button>
       
       <button
         className="px-4 py-2 rounded bg-green-500 text-white mb-4"
-        onClick={() => navigate('/create-task')}
+        onClick={() => navigate('/create-post')}
       >
-        Create Task
+        Create Post
       </button>
-      
-        <button
-         className='px-4 py-2 rounded bg-yellow-500 text-white mb-4'
-         onClick={() => navigate('/users')}
-        >
-          Get All Users
-        </button>
       </div>
     </PageLayout>
   );
