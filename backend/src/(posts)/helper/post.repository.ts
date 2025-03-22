@@ -22,9 +22,23 @@ export class PostRepository {
         id: true,
         title: true,
         content: true,
-        authorId: true,
-        comments: true
-      }
+        author: { // Include the author relation
+          select: {
+            name: true, // Select the author's name
+          },
+        },
+        comments: {
+          select: {
+            id: true,
+            content: true,
+            author: { // Include the author relation for comments
+              select: {
+                name: true, // Select the comment author's name
+              },
+            },
+          },
+        },
+      },
     });
   }
 
@@ -34,7 +48,12 @@ export class PostRepository {
         id: true,
         title: true,
         content: true,
-      }
+        author: { // Include the author relation
+          select: {
+            name: true, // Select the author's name
+          },
+        },
+      },
     });
   }
 

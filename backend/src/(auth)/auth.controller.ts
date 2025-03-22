@@ -25,25 +25,25 @@ export class AuthController {
     ) {
       const user = await this.authService.register(body, locale);
        delete user.user.password;
-      return this.responseService.created(
-        res,
-        ResponseMessages(AuthReponseService, 'userCreated', locale),
-        user
-      );
-    }
-
-    @Post('login/user')
-    @ApiHeader({name :'locale',description: 'Language locale', enum: LocaleEnum})
-    async login(
-      @Body() body: UserLoginDto,
-      @Headers('locale') locale: Locale,
-      @Res() res: Response,
-    ) {
-      const user = await this.authService.login(body, locale);
-      delete user.user.password;
-      return this.responseService.success(
+       return this.responseService.created(
          res,
-        ResponseMessages(AuthReponseService, 'userLogin', locale),
+         ResponseMessages(AuthReponseService, 'userCreated', locale),
+         user
+        );
+      }
+      
+      @Post('login/user')
+      @ApiHeader({name :'locale',description: 'Language locale', enum: LocaleEnum})
+      async login(
+        @Body() body: UserLoginDto,
+        @Headers('locale') locale: Locale,
+        @Res() res: Response,
+      ) {
+        const user = await this.authService.login(body, locale);
+        delete user.user.password;
+        return this.responseService.success(
+          res,
+          ResponseMessages(AuthReponseService, 'userLogin', locale),
         user
       );
     }
