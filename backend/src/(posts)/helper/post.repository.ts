@@ -22,18 +22,18 @@ export class PostRepository {
         id: true,
         title: true,
         content: true,
-        author: { // Include the author relation
+        author: { 
           select: {
-            name: true, // Select the author's name
+            name: true, 
           },
         },
         comments: {
           select: {
             id: true,
             content: true,
-            author: { // Include the author relation for comments
+            author: { 
               select: {
-                name: true, // Select the comment author's name
+                name: true, 
               },
             },
           },
@@ -44,13 +44,16 @@ export class PostRepository {
 
   async findPosts() {
     return this.prismaService.post.findMany({
+      orderBy: {
+        createdAt: 'desc', 
+      },
       select: {
         id: true,
         title: true,
         content: true,
-        author: { // Include the author relation
+        author: { 
           select: {
-            name: true, // Select the author's name
+            name: true, 
           },
         },
       },
